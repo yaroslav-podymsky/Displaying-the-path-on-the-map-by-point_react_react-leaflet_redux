@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
-	Circle,
-	LayersControl,
 	MapContainer,
 	Marker,
 	Polygon,
@@ -11,11 +9,11 @@ import {
 	ZoomControl,
 } from "react-leaflet";
 import L from "leaflet";
-import Layers from "./Layers";
-import { useLeafletContext } from "@react-leaflet/core";
+
 import { useTypedSelector } from "../hooks/useTypeSelector";
-import { Waypoints } from "./Waypoints";
 import { ReactLeafletWaypoints } from "react-leaflet-waypoints";
+
+import { IconMap } from "antd/es/result";
 
 // function Square(props) {
 // 	const context = useLeafletContext();
@@ -47,7 +45,7 @@ const Map = () => {
 			<MapContainer
 				// center={[center.ingFrom, center.latFrom]}
 				zoom={9}
-				scrollWheelZoom={true}
+				scrollWheelZoom={false}
 				controls={["geolocationControl"]}
 				attributionControl={true}
 				zoomControl={false}
@@ -99,10 +97,14 @@ const Map = () => {
 				)} */}
 
 				{/* <ZoomControl position="topright" /> */}
-				{/* <Waypoints testId={testId} waypoints={waypoints} summaryTemplate={summaryTemplate} {...rest}/> */}
 
 				{/* {currentCoordinates.latFrom && ( */}
+				{/* <RoutingControl /> */}
 				<ReactLeafletWaypoints
+					// className="qwe"
+					// zoomControl={false}
+					// scrollWheelZoom={false}
+					fitRoutes={true}
 					// center={[center.ingFrom, center.latFrom]}
 					// zoom={1}
 					// maxZoom={8}
@@ -116,11 +118,46 @@ const Map = () => {
 					// easeLinearity={0.35}
 					// useZoomParameter={false}
 					// autoRoute={false}
+					summaryTemplate={`
+					<div>
+					  <p style="margin: 0">
+						<span style="font-weight: bold">Distance: </span>
+						<span>{distance}</span>
+					  </p>
+					  <p style="margin: 0">
+					  <span style="font-weight: bold">Time: </span>
+					  <span>{time}</span>
+					  </p>
+					</div>
+				  `}
+					glyph={{
+						icon: "custom-icon custom-icon-marker",
+					}}
 					layerUrl="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
 					waypoints={[
-						{ lat: currentCoordinates.latFrom, lng: currentCoordinates.ingFrom },
-						{ lat: currentCoordinates.latTo, lng: currentCoordinates.ingTo },
+						{
+							lat: currentCoordinates.latFrom,
+							glyph: { text: "From" },
+							lng: currentCoordinates.ingFrom,
+						},
+						{
+							lat: currentCoordinates.latTo,
+							glyph: { text: "To" },
+							lng: currentCoordinates.ingTo,
+						},
 					]}
+					lineOptions={{
+						styles: [
+							{
+								color: " rgb(129, 127, 2)",
+								opacity: 1,
+								weight: 2,
+							},
+						],
+					}}
+					// autoRoute
+					// showAlternatives
+					// pointsCoordinates={<div>qwe</div>}
 				/>
 				{/* )} */}
 				{/* {!currentCoordinates.latFrom && (

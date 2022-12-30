@@ -132,7 +132,7 @@ function App() {
 				dataSource={dataSource}
 				columns={columns}
 				rowClassName="App-table-item"
-				rowSelection={rowSelection}
+				// rowSelection={rowSelection}
 			/>
 			<Map />
 		</div>
