@@ -1,34 +1,35 @@
+import { data } from "../../data";
 import {
-	CoordinatesActionTypes,
-	CoordinatesAction,
-	ICoordinatesState,
+  CoordinatesActionTypes,
+  CoordinatesAction,
+  ICoordinatesState,
+  ICurrentCoordinates,
 } from "../../types/coordinates";
 
 const initialState: ICoordinatesState = {
-	currentCoordinates: {
-		key: "1",
-		requestNumber: "№1",
-		latFrom: 59.84660399,
-		ingFrom: 30.29496392,
-		latTo: 59.82934196,
-		ingTo: 30.42423701,
-	},
-	pointsCoordinates: [],
-	// center: { ingFrom: 59.84660399, latFrom: 30.29496392 },
+  currentCoordinates: data[0],
+  selectedKeys: ["1"],
 };
 
 export const coordinatesReducer = (
-	state = initialState,
-	action: CoordinatesAction,
+  state = initialState,
+  action: CoordinatesAction
 ): ICoordinatesState => {
-	switch (action.type) {
-		case CoordinatesActionTypes.CHANGE_CURRENT_COORDINATES:
-			return { ...state, currentCoordinates: action.payload };
-		case CoordinatesActionTypes.CHANGE_POINTS_COORDINATES:
-			return { ...state, pointsCoordinates: action.payload };
-		// case CoordinatesActionTypes.CHANGE_CENTER_COORDINATES:
-		// 	return { ...state, center: action.payload };
-		default:
-			return state;
-	}
+  switch (action.type) {
+    case CoordinatesActionTypes.CHANGE_CURRENT_COORDINATES:
+      return { ...state, currentCoordinates: action.payload };
+    case CoordinatesActionTypes.CHANGE_SELECTED_KEYS:
+      return { ...state, selectedKeys: action.payload };
+    default:
+      return state;
+  }
 };
+
+export const currentCoordinatesChange = (payload: ICurrentCoordinates) => ({
+  type: CoordinatesActionTypes.CHANGE_CURRENT_COORDINATES,
+  payload,
+});
+export const selectedKeysChange = (payload: string[]) => ({
+  type: CoordinatesActionTypes.CHANGE_SELECTED_KEYS,
+  payload,
+});

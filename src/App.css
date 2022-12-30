@@ -2,15 +2,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 100px;
+  padding: 50px;
 }
 
 .App-table {
   border: 2px solid rgba(121, 119, 230, 0.425);
-  width: 800px;
+  width: 600px;
   margin-right: 50px;
   border-radius: 5px;
 }
-.App-table-item:hover {
+.App-table-item {
   cursor: pointer;
 }
